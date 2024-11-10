@@ -5,16 +5,28 @@ const courseSchema = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
-    require: [true, 'Mora da vnesete ime na kursot'],
+    require: [true, 'Plese enter a name of the course'],
   },
-  adress: {
+  address: {
     type: String,
-    require: [true, 'Mora da vnesete adresa na kursot'],
+    require: [true, 'Plese enter a address of the course'],
   },
-  teritory: {
+  region: {
     type: String,
-    require: [true, 'Mora da se vnese za koja oblast e namenet vneseniot kurs'],
+    require: [true, 'Plese enter for which region is this course'],
   },
+  academy: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Academy',
+  },
+});
+
+courseSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'academy',
+    select: '-__v',
+  });
+  next();
 });
 
 const Course = mongoose.model('Course', courseSchema);

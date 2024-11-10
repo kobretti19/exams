@@ -6,9 +6,9 @@ const academySchema = new mongoose.Schema({
     type: String,
     unique: [true, 'Ve molime vneseto go imeto na Akademijata'],
   },
-  adress: {
+  address: {
     type: String,
-    unique: [true, 'Ve molime vnesete ja adresata na Akademijata'],
+    unique: [false, 'Ve molime vnesete ja adresata na Akademijata'],
   },
 });
 

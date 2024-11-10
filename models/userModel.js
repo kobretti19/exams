@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 const { default: isEmail } = require('validator/lib/isEmail');
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -36,6 +37,10 @@ const userSchema = new mongoose.Schema({
       message: 'Lozinkite ne se sovpagjaat!',
     },
   },
+  academy: {
+    type: mongoose.Schema.ObjectId,
+    ref: 'Academy',
+  },
 });
 
 userSchema.pre('save', async function (next) {
@@ -44,6 +49,21 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, 12);
   this.passwordConfirm = undefined;
 });
+
+userSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'academy',
+    select: '-__v',
+  });
+  next();
+});
+
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  userPassword
+) {
+  return await bcrypt.compare(candidatePassword, userPassword);
+};
 
 const User = mongoose.model('User', userSchema);
 

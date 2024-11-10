@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res, next) => {
   try {
-    const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+    const course = await Academy.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
@@ -78,7 +78,7 @@ exports.update = async (req, res, next) => {
 
 exports.delete = async (req, res) => {
   try {
-    const course = await Course.findByIdAndDelete(req.params.id);
+    const course = await Academy.findByIdAndDelete(req.params.id);
     if (!course) {
       return res.send(`No course found with ID:${course}`);
     }
