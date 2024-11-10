@@ -1,4 +1,5 @@
 const Academy = require('./../models/academyModel');
+const APIFeatures = require('./../utils/apiFeatures');
 
 exports.getAll = async (req, res) => {
   try {

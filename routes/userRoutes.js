@@ -8,19 +8,13 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.get('/logout', authController.logout);
 
+router.use(authController.protect);
+
 router.route('/').get(userController.getAll);
 
 router
   .route('/:id')
-  .delete(
-    authController.protect,
-    userController.restrictTo('admin'),
-    userController.deleteMe
-  )
-  .patch(
-    authController.protect,
-    userController.restrictTo('admin'),
-    userController.updateMe
-  );
+  .delete(userController.restrictTo('admin'), userController.deleteMe)
+  .patch(userController.restrictTo('admin'), userController.updateMe);
 
 module.exports = router;

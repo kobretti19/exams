@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>signUp</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <header><%- include("partials/header") %></header>
+  <body>
+    <main>
+      <div class="form-container">
+        <form
+          class="form"
+          action="/users/signUp"
+          method="post"
+          enctype="
+        multipart/form-data"
+        >
+          <input id="photo" type="file" name="name" placeholder="Name" />
+          <input id="name" type="text" name="name" placeholder="Name" />
+          <input type="text" name="email" placeholder="email" />
+          <input type="text" name="password" placeholder="password" />
+          <input
+            type="text"
+            name="passwordConfirm"
+            placeholder="passwordConfirm"
+          />
+          <br />
+          <div class="btn-container">
+            <button class="btn" type="submit">Create</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

@@ -12,6 +12,12 @@ const academySchema = new mongoose.Schema({
   },
 });
 
+academySchema.virtual('academy', {
+  ref: 'Course',
+  foreignField: 'academy',
+  localField: '_id',
+});
+
 const Academy = mongoose.model('Academy', academySchema);
 
 module.exports = Academy;

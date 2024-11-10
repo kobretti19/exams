@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>createAcademy</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <header><%- include("partials/header") %></header>
+  <body>
+    <main>
+      <div class="form-container">
+        <form
+          id="form"
+          action="/createAcademy"
+          method="post"
+          enctype="
+        multipart/form-data"
+        >
+          <input type="text" name="name" placeholder="Name" id="name" />
+          <input
+            type="text"
+            name="address"
+            placeholder="Address"
+            id="address"
+          />
+          <br />
+          <div class="btn-container">
+            <button class="btn" type="submit">Create</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>
