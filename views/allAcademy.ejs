@@ -3,21 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Courses</title>
+    <title>Academy</title>
     <link rel="stylesheet" href="/css/style.css" />
   </head>
   <header><%- include("partials/header") %></header>
   <body>
     <main>
       <div class="card-container">
-        <% courses.forEach((course)=>{%>
+        <% academy.forEach((academy)=>{%>
         <div class="academy-container">
-          <div class="card-name"><p><%=course.name %></p></div>
-          <div class="card-adress"><p><%=course.address %></p></div>
-          <div class="card-adress"><p><%=course.region %></p></div>
-          <div class="readmore-link">
-            <a href="/allCourses/<%=course.id %>">readmore...</a>
-          </div>
+          <div class="card-name"><p><%=academy.name %></p></div>
+          <div class="card-adress"><p><%=academy.address %></p></div>
+          <div class="readmore-link"></div>
         </div>
         <%}) %>
       </div>

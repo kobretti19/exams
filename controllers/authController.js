@@ -11,26 +11,22 @@ const signToken = (id) => {
 };
 
 const createSendToken = (user, statusCode, res) => {
-  const token = signToken(user._id);
-  const cookieOptions = {
-    expires: new Date(
+  const token = signToken(user.id);
+
+  res.cookie('jwt', token, {
+    expiresIn: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
+    // secure: true,
     httpOnly: true,
-  };
-
-  res.cookie('jwt', token, cookieOptions);
-
-  // Remove password from output
-  user.password = undefined;
-
-  res.status(statusCode).json({
-    status: 'success',
-    token,
-    data: {
-      user,
-    },
   });
+  // return res.status(statusCode).json({
+  //   status: 'success',
+  //   token,
+  //   data: {
+  //     user,
+  //   },
+  // });
 };
 
 exports.signup = async (req, res, next) => {
@@ -42,20 +38,21 @@ exports.signup = async (req, res, next) => {
       passwordConfirm: req.body.passwordConfirm,
       academy: req.body.academy,
     });
+    console.log(newUser);
     await sendEmail({
       email: newUser.email,
       subject: 'account create',
       message: `Your new account with email address:${newUser.email} have been created `,
     });
     const token = signToken(newUser._id);
-
-    res.status(201).json({
-      status: 'success',
-      token,
-      data: {
-        user: newUser,
-      },
-    });
+    res.render('newuser', { newUser });
+    // res.status(201).json({
+    //   status: 'success',
+    //   token,
+    //   data: {
+    //     user: newUser,
+    //   },
+    // });
   } catch (err) {
     res.status(404).json({
       status: 'fail',
@@ -83,6 +80,7 @@ exports.login = async (req, res, next) => {
 
   // 3) If everything is ok, send token to client
   const token = signToken(user._id);
+  createSendToken(user, 200, res);
   res.status(200).json({
     status: 'success',
     token,
@@ -162,5 +160,5 @@ exports.logout = (req, res) => {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
-  res.status(200).json({ status: 'success' });
+  res.redirect('/');
 };

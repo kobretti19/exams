@@ -51,12 +51,45 @@ exports.getAllCourses = async (req, res) => {
     });
   }
 };
+exports.getOneCourse = async (req, res) => {
+  try {
+    let course = await Course.findById(req.params.id);
+
+    res.render('course', { course });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err.message,
+    });
+  }
+};
 
 exports.createCourse = async (req, res) => {
   try {
     const course = await Course.create(req.body);
 
     res.redirect('/allCourses');
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err.message,
+    });
+  }
+};
+
+exports.login = async (req, res) => {
+  try {
+    res.render('login');
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err.message,
+    });
+  }
+};
+exports.signup = async (req, res) => {
+  try {
+    res.render('signup');
   } catch (err) {
     res.status(404).json({
       status: 'fail',
